@@ -1,0 +1,75 @@
+/* Home Container */
+.homeContainer {
+  padding: 20px;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff416c);
+  color: #fff;
+  padding: 60px 10%;
+  border-radius: 15px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Hero Content */
+.heroContent {
+  max-width: 50%;
+}
+
+.heroContent h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.heroContent p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* Hero Buttons */
+.heroButtons {
+  display: flex;
+  gap: 15px;
+}
+
+.shopNowBtn,
+.exploreBtn {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s ease-in-out;
+}
+
+.shopNowBtn {
+  background: #fff;
+  color: #ff416c;
+  font-weight: bold;
+}
+
+.shopNowBtn:hover {
+  background: #ffccdd;
+}
+
+.exploreBtn {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.exploreBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Hero Image */
+.heroImage img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}

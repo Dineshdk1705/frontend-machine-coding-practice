@@ -1,0 +1,26 @@
+.img {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+.product {
+  height: 200px;
+  width: 200px;
+  cursor: pointer;
+}
+
+.product:hover {
+  background-color: #ededed;
+}
+
+.cart_btn {
+  padding: 5px;
+}
