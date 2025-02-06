@@ -5,6 +5,10 @@ import Pagination from "../../components/custom/Pagination/Pagination";
 import useDebounce from "../../hooks/useDebounce";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/slices/productSlice";
+import { IoSearch } from "react-icons/io5";
+import CloseIcon from "@mui/icons-material/Close";
+import { Typography } from "@mui/material";
+// import { Pagination } from "@mui/material";
 
 const Products = () => {
   const [searchText, setSearchText] = useState("");
@@ -17,10 +21,15 @@ const Products = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productItems.productList);
   const carts = useSelector((state) => state.cartItems.cartList);
+  const wishlists = useSelector((state) => state.wishlistItems.wishlistList);
   const isLoading = useSelector((state) => state.productItems.loading);
 
   const checkInCart = (id) => {
     return carts.find((c) => c.id === id);
+  };
+
+  const checkInWishlist = (id) => {
+    return wishlists.find((w) => w.id === id);
   };
 
   useEffect(() => {
@@ -37,11 +46,28 @@ const Products = () => {
 
   return (
     <>
-      <input
-        value={searchText}
-        placeholder="search product..."
-        onChange={(e) => setSearchText(e.target.value)}
-      />
+      <div className={styles.input_container}>
+        <span className={styles.input_box}>
+          <IoSearch style={{ marginRight: 5 }} color="#7d7d7def" />
+          <input
+            className={styles.input}
+            value={searchText}
+            placeholder="search product..."
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+          {searchText.trim() && (
+            <span className={styles.close} onClick={() => setSearchText("")}>
+              <CloseIcon fontSize="20px" />
+            </span>
+          )}
+        </span>
+      </div>
+      <Typography
+        sx={{ fontSize: 50, fontWeight: 1000, textAlign: "left" }}
+        variant="h6"
+      >
+        Our Products
+      </Typography>
       {isLoading ? (
         <div>Loading.....</div>
       ) : filteredProducts?.length ? (
@@ -58,10 +84,14 @@ const Products = () => {
                     key={product?.id}
                     product={product}
                     inCart={checkInCart(product?.id)}
+                    inWishlist={checkInWishlist(product?.id)}
+                    ratingValue={product?.rating}
                   />
                 );
               })}
           </ul>
+
+          {/* <Pagination count={10} color="primary" /> */}
 
           <Pagination
             currentPage={currentPage}

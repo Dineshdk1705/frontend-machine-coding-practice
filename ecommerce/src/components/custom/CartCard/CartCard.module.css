@@ -1,0 +1,64 @@
+.cartItem {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 16px;
+}
+
+.cartItem {
+  align-items: center;
+}
+
+.itemDetails {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 16px;
+  width: 66%;
+}
+
+.itemImage {
+  width: 64px;
+  height: 64px;
+}
+
+.itemTitle {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.itemPrice {
+  color: gray;
+}
+
+.quantityControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  width: 33%;
+}
+
+.controlButton {
+  padding: 8px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.totalPriceContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.totalPrice {
+  font-size: 18px;
+}
+
+.deleteButton {
+  color: red;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}

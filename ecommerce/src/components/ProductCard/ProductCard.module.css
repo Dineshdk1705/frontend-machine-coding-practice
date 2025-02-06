@@ -1,4 +1,4 @@
-.img {
+/* .img {
   height: 100px;
   width: 100px;
   object-fit: cover;
@@ -23,4 +23,25 @@
 
 .cart_btn {
   padding: 5px;
+} */
+
+.favorite_icon_box {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border-radius: 100%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08);
+  width: 1.7rem;
+  height: 1.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rating {
+  color: #000;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
