@@ -12,6 +12,7 @@ import {
   CardContent,
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import styles from "../ProductCard/ProductCard.module.css";
@@ -21,21 +22,21 @@ import {
 } from "../../redux/slices/wishlistSlice";
 import { Icon } from "@mui/material";
 import { FaStar } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const ProductCard = ({ product, inCart, inWishlist, ratingValue }) => {
-  const { id, price, title, thumbnail, brand } = product;
+  const { id, price, title, thumbnail, stock, brand } = product;
   const dispatch = useDispatch();
   return (
     <Card
+      className={styles.container}
       sx={{
         position: "relative",
-        width: 230,
-        height: 280,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         boxShadow: "none",
-        border: "1px solid #bababa",
+        border: "1px solid rgb(218, 218, 218)",
         borderRadius: 4,
       }}
     >
@@ -59,12 +60,12 @@ const ProductCard = ({ product, inCart, inWishlist, ratingValue }) => {
           <Typography
             variant="body2"
             sx={{
-              color: "#4A99E8",
+              color: "#4a99e8",
               fontWeight: 1000,
               fontSize: 18,
             }}
           >
-            ${price}
+            ₹ {price}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -89,15 +90,31 @@ const ProductCard = ({ product, inCart, inWishlist, ratingValue }) => {
           variant="contained"
           color="info"
           size="small"
-          onClick={() =>
+          sx={{
+            borderRadius: 3,
+            boxShadow: "none",
+            backgroundColor: "#4a99e8",
+          }}
+          onClick={() => {
             dispatch(
-              addToCart({ id, price, title, thumbnail, brand, quantity: 1 })
-            )
-          }
+              addToCart({
+                id,
+                price,
+                title,
+                thumbnail,
+                brand,
+                stock,
+                quantity: 1,
+              })
+            );
+            toast.success("Added to the Bag 🥳");
+          }}
           disabled={inCart}
-          endIcon={<AddShoppingCartIcon />}
+          endIcon={
+            inCart ? <AddShoppingCartIcon /> : <ShoppingCartOutlinedIcon />
+          }
         >
-          Add to cart
+          {inCart ? "In Cart" : "Add to cart"}
         </Button>
       </CardActions>
       <div
@@ -112,6 +129,7 @@ const ProductCard = ({ product, inCart, inWishlist, ratingValue }) => {
                   title,
                   thumbnail,
                   brand,
+                  stock,
                   quantity: 1,
                 })
               )

@@ -1,6 +1,7 @@
 .container {
   display: flex;
   align-items: center;
+  padding: 30px 0;
 }
 
 .img_main {
@@ -16,6 +17,13 @@
   width: 100px;
   background-color: #f5f5f5;
   border-radius: 10px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.img_inner:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .left_side {
@@ -73,6 +81,7 @@
   display: flex;
   gap: 15px;
   margin-bottom: 40px;
+  /* justify-content: center; */
 }
 
 .buy_button {
@@ -87,8 +96,8 @@
 }
 
 .buy_button:hover {
-  background-color: #458ed7;
-  border: 1px solid #458ed7;
+  background-color: #468fd8;
+  border: 1px solid #4a99e8;
 }
 
 .cart_button {
@@ -117,4 +126,73 @@
   border: 1px solid #e2e2e2;
   border-radius: 15px;
   gap: 15px;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left_side {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    margin-bottom: 20px;
+    /* padding: 0 20px; */
+  }
+  .img_main {
+    height: 300px;
+    width: 250px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .img_inner {
+    height: 80px;
+    width: 80px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+  }
+  .quantity_box {
+    flex-direction: column;
+    /* align-items: center; */
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .btn_box {
+    justify-content: center;
+  }
+
+  .delivery_box {
+    flex-direction: column;
+    align-items: center;
+    padding: 13px 15px;
+    border: 1px solid #e2e2e2;
+    border-radius: 15px;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  .right_side {
+    max-width: 80vw;
+    padding: 0 10px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1350px) {
+  .img_main {
+    height: 400px;
+    width: 350px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .btn_box {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 40px;
+  }
 }

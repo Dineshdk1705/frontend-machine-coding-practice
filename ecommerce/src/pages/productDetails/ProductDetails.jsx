@@ -7,6 +7,7 @@ import { Divider, IconButton, Rating } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { BiHome } from "react-icons/bi";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import {
   addToCart,
   decreaseQuantity,
@@ -18,6 +19,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [imageNumber, setImageNumber] = useState(0);
   const [customQuantity, setCustomQuantity] = useState(1);
   const carts = useSelector((state) => state.cartItems.cartList);
   const dispatch = useDispatch();
@@ -33,25 +35,28 @@ const ProductDetails = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  const getProductDetails = async () => {
-    try {
-      setIsLoading(true);
-      const res = await fetch(`https://dummyjson.com/products/${id}`);
-      const data = await res.json();
-      setProduct(data);
-    } catch (error) {
-      console.log("error while fetching product detail:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
   useEffect(() => {
+    const getProductDetails = async () => {
+      try {
+        setIsLoading(true);
+        const res = await fetch(`https://dummyjson.com/products/${id}`);
+        const data = await res.json();
+        setProduct(data);
+      } catch (error) {
+        console.log("error while fetching product detail:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     getProductDetails();
   }, [id]);
 
-  const findIndexOfProduct = (id) => {
-    return carts.findIndex((c) => c.id === id);
-  };
+  const findIndexOfProduct = useCallback(
+    (id) => {
+      return carts.findIndex((c) => c.id === id);
+    },
+    [carts]
+  );
 
   const incQuantity = (id) => {
     const productIndex = findIndexOfProduct(id);
@@ -83,19 +88,26 @@ const ProductDetails = () => {
       ) : (
         <div className={styles.container}>
           <div className={styles.left_side}>
-            <img
-              src={product?.images[0]}
+            <LazyLoadImage
+              src={`${product?.images[imageNumber]}`}
               alt="poster"
+              effect="black-and-white"
+              loading="lazy"
               className={styles.img_main}
             />
             <div className={styles.img_more}>
               {product?.images?.length > 1 &&
                 product?.images?.map((url, i) => (
-                  <img
+                  <LazyLoadImage
                     key={i}
                     src={url}
                     alt="poster1"
+                    effect="black-and-white"
+                    loading="lazy"
                     className={styles.img_inner}
+                    onClick={() => {
+                      setImageNumber(i);
+                    }}
                   />
                 ))}
             </div>
@@ -105,7 +117,10 @@ const ProductDetails = () => {
               <Typography
                 variant="h6"
                 sx={{
-                  fontSize: "35px",
+                  fontSize: {
+                    md: "20px",
+                    lg: "35px",
+                  },
                   fontWeight: "bold",
                 }}
               >
@@ -132,7 +147,7 @@ const ProductDetails = () => {
                 <p className={styles.review}>({product?.reviews.length})</p>
               </div>
               <Typography variant="h6" sx={{ fontWeight: 900 }}>
-                $ {product?.price}
+                ₹ {product?.price}
               </Typography>
               <Typography
                 variant="body1"
@@ -163,7 +178,7 @@ const ProductDetails = () => {
 
                   <Typography
                     variant="h6"
-                    sx={{ color: "#4A99E8", fontWeight: "bold" }}
+                    sx={{ color: "#4a99e8", fontWeight: "bold" }}
                   >
                     {product?.quantity || customQuantity}
                   </Typography>
@@ -183,8 +198,10 @@ const ProductDetails = () => {
                   sx={{ fontWeight: 500, color: "#8d8d8d" }}
                 >
                   Only{" "}
-                  <span style={{ color: "#4A99E8" }}>
-                    {product?.stock - customQuantity} items
+                  <span style={{ color: "#4a99e8" }}>
+                    {product?.stock - customQuantity < 0
+                      ? "item"
+                      : `${product?.stock - customQuantity} items `}
                   </span>{" "}
                   Left! Don't miss it
                 </Typography>
@@ -196,18 +213,19 @@ const ProductDetails = () => {
                   style={{
                     borderColor: !cartIdInCart(Number(id))
                       ? "#4a99e8"
-                      : "#FF4D58",
-                    color: !cartIdInCart(Number(id)) ? "#4a99e8" : "#FF4D58",
+                      : "#8d8d8d",
+                    color: !cartIdInCart(Number(id)) ? "#4a99e8" : "#8d8d8d",
                   }}
                   onClick={() =>
                     !cartIdInCart(Number(id))
                       ? dispatch(
                           addToCart({
-                            id: product.id,
-                            price: product.price,
-                            title: product.title,
-                            thumbnail: product.thumbnail,
-                            brand: product.brand,
+                            id: product?.id,
+                            price: product?.price,
+                            title: product?.title,
+                            thumbnail: product?.thumbnail,
+                            brand: product?.brand,
+                            stock: product?.stock,
                             quantity: customQuantity,
                           })
                         )
@@ -238,7 +256,7 @@ const ProductDetails = () => {
                       textDecoration: "underline",
                     }}
                   >
-                    Enter your Postal Code fro Delivery Availability
+                    Enter your Postal Code for Delivery Availability
                   </Typography>
                 </div>
               </div>

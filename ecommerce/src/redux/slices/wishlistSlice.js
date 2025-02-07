@@ -10,7 +10,7 @@ const wishlistSlice = createSlice({
   },
   reducers: {
     addToWishlist: (state, action) => {
-      state.wishlistList.push({
+      state.wishlistList.unshift({
         ...action.payload,
         quantity: action.payload.quantity,
       });

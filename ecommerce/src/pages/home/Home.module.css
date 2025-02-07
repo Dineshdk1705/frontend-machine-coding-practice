@@ -1,75 +1,98 @@
-/* Home Container */
-.homeContainer {
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   padding: 20px;
 }
 
-/* Hero Section */
-.hero {
+.heroContent {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff416c);
-  color: #fff;
-  padding: 60px 10%;
-  border-radius: 15px;
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 1200px;
+  width: 100%;
+  gap: 40px;
 }
 
-/* Hero Content */
-.heroContent {
-  max-width: 50%;
+.heroText {
+  max-width: 500px;
 }
 
-.heroContent h1 {
-  font-size: 3rem;
+.heroTitle {
+  font-size: 2.5rem;
   font-weight: bold;
-  margin-bottom: 15px;
-}
-
-.heroContent p {
-  font-size: 1.2rem;
+  color: #333;
   margin-bottom: 20px;
 }
 
-/* Hero Buttons */
-.heroButtons {
-  display: flex;
-  gap: 15px;
+.heroSubtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
 }
 
-.shopNowBtn,
-.exploreBtn {
-  padding: 12px 20px;
+.heroButton {
+  padding: 15px 30px;
   font-size: 1rem;
-  border-radius: 8px;
-  cursor: pointer;
+  color: white;
+  background-color: #4a99e8;
+  font-weight: 600;
   border: none;
-  transition: 0.3s ease-in-out;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.shopNowBtn {
-  background: #fff;
-  color: #ff416c;
-  font-weight: bold;
+.heroButton:hover {
+  background-color: #408bd6;
 }
 
-.shopNowBtn:hover {
-  background: #ffccdd;
-}
-
-.exploreBtn {
-  background: transparent;
-  border: 2px solid #fff;
-  color: #fff;
-}
-
-.exploreBtn:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* Hero Image */
 .heroImage img {
   max-width: 100%;
-  border-radius: 10px;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  height: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .heroContent {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  .heroButton {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+
+  .heroImage img {
+    max-width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 1.8rem;
+  }
+
+  .heroSubtitle {
+    font-size: 0.9rem;
+  }
+
+  .heroButton {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+  }
+
+  .heroImage img {
+    max-width: 100%;
+  }
 }

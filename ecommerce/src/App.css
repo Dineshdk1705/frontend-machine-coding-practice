@@ -1,3 +1,13 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fcfcfc;
+  /* background: linear-gradient(135deg, #ffffff 0%, #ededed 100%); */
+}
+
 * {
   margin: 0;
   padding: 0;

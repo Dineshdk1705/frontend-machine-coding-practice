@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "./Cart.module.css";
 import CartCard from "../../components/custom/CartCard/CartCard";
+import { Typography } from "@mui/material";
 
 const Cart = () => {
   const [promoCode, setPromoCode] = useState("");
@@ -28,11 +29,17 @@ const Cart = () => {
 
   return (
     <div className={styles.container}>
+      <Typography
+        sx={{ fontSize: 50, fontWeight: 1000, textAlign: "center" }}
+        variant="h6"
+      >
+        Cart
+      </Typography>
       <div className={styles.cartWrapper}>
         <div className={cart.length > 0 ? styles.cartItems : styles.emptyCart}>
-          <h1 className={styles.title}>
-            Cart {cart.length > 0 ? `(${cart.length} products)` : "is empty"}
-          </h1>
+          <Typography variant="body2">
+            {cart.length > 0 && `Total ${cart.length} products`}
+          </Typography>
           {cart.length > 0 ? (
             <ul className={styles.cartList}>
               {cart.map((c) => (
@@ -43,6 +50,7 @@ const Cart = () => {
                   title={c?.title}
                   price={c?.price}
                   quantity={c.quantity}
+                  stock={c?.stock}
                 />
               ))}
             </ul>

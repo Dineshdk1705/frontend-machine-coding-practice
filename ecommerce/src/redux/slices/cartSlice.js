@@ -10,7 +10,7 @@ const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-      state.cartList.push({
+      state.cartList.unshift({
         ...action.payload,
         quantity: action.payload.quantity,
       });

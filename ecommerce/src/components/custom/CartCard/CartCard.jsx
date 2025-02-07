@@ -15,13 +15,26 @@ import {
   Button,
   Box,
 } from "@mui/material";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
+import toast from "react-hot-toast";
 
-const CartCard = ({ id, thumbnail, title, price, quantity }) => {
+const CartCard = ({ id, thumbnail, title, price, quantity, stock }) => {
   const dispatch = useDispatch();
 
   return (
-    <Card sx={{ display: "flex", alignItems: "center", p: 2, mb: 2 }}>
-      {/* Product Image */}
+    <Card
+      sx={{
+        display: "flex",
+        flexDirection: {
+          xs: "column",
+          md: "row",
+        },
+        alignItems: "center",
+        p: 2,
+        mb: 2,
+      }}
+    >
       <CardMedia
         component="img"
         image={thumbnail}
@@ -29,7 +42,6 @@ const CartCard = ({ id, thumbnail, title, price, quantity }) => {
         sx={{ width: 80, height: 80, borderRadius: 1, mr: 2 }}
       />
 
-      {/* Product Details */}
       <CardContent sx={{ flex: "1" }}>
         <Typography variant="h6">{title}</Typography>
         <Typography variant="body2" color="text.secondary">
@@ -37,7 +49,6 @@ const CartCard = ({ id, thumbnail, title, price, quantity }) => {
         </Typography>
       </CardContent>
 
-      {/* Quantity Controls */}
       <Box sx={{ display: "flex", alignItems: "center", mx: 2 }}>
         <Button
           variant="outlined"
@@ -48,22 +59,27 @@ const CartCard = ({ id, thumbnail, title, price, quantity }) => {
               : dispatch(removeFromCart(id))
           }
         >
-          -
+          <RemoveIcon />
         </Button>
         <Typography sx={{ mx: 2 }}>{quantity}</Typography>
         <Button
           variant="outlined"
           size="small"
-          onClick={() => dispatch(increaseQuantity(id))}
+          onClick={() => stock > quantity && dispatch(increaseQuantity(id))}
         >
-          +
+          <AddIcon />
         </Button>
       </Box>
 
-      {/* Price and Delete Button */}
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
         <Typography variant="h6">₹{(price * quantity).toFixed(2)}</Typography>
-        <IconButton color="error" onClick={() => dispatch(removeFromCart(id))}>
+        <IconButton
+          color="error"
+          onClick={() => {
+            dispatch(removeFromCart(id));
+            toast.success("Removed from Bag 😔");
+          }}
+        >
           <MdDeleteOutline size={24} />
         </IconButton>
       </Box>
