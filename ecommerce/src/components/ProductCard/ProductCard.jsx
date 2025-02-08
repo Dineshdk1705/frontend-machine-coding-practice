@@ -25,8 +25,10 @@ import { FaStar } from "react-icons/fa";
 import toast from "react-hot-toast";
 
 const ProductCard = ({ product, inCart, inWishlist, ratingValue }) => {
-  const { id, price, title, thumbnail, stock, brand } = product;
+  const { id, price, title, thumbnail, stock, brand, discountPercentage } =
+    product;
   const dispatch = useDispatch();
+  const beforeDiscountPrice = (price * Math.round(discountPercentage)) / 100;
   return (
     <Card
       className={styles.container}
@@ -36,7 +38,7 @@ const ProductCard = ({ product, inCart, inWishlist, ratingValue }) => {
         flexDirection: "column",
         justifyContent: "space-between",
         boxShadow: "none",
-        border: "1px solid rgb(218, 218, 218)",
+        border: "1px solid #DADADA",
         borderRadius: 4,
       }}
     >
@@ -65,8 +67,27 @@ const ProductCard = ({ product, inCart, inWishlist, ratingValue }) => {
               fontSize: 18,
             }}
           >
-            ₹ {price}
+            ₹{price.toLocaleString("en-IN")}
           </Typography>
+          <div className={styles.discount_container}>
+            <Typography
+              variant="body2"
+              sx={{
+                color: "#8C8C8C",
+                textDecoration: "line-through",
+                fontSize: "13px",
+              }}
+            >
+              ₹
+              {(price + beforeDiscountPrice).toFixed(2).toLocaleString("en-IN")}
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ color: "#00C23D", fontWeight: 500, fontSize: "13px" }}
+            >
+              {Math.round(discountPercentage)}% off
+            </Typography>
+          </div>
         </CardContent>
       </CardActionArea>
 
@@ -76,11 +97,21 @@ const ProductCard = ({ product, inCart, inWishlist, ratingValue }) => {
           justifyContent: "space-between",
         }}
       >
-        <Typography variant="h6" className={styles.rating}>
-          <FaStar size={17} />
+        <Typography
+          variant="h6"
+          className={styles.rating}
+          sx={{
+            borderRadius: 50,
+          }}
+        >
+          <FaStar size={12} />
           <Typography
             className={styles.rating_text}
-            sx={{ marginLeft: 0.5, fontSize: 14, fontWeight: 500 }}
+            sx={{
+              marginLeft: 0.5,
+              fontSize: 12,
+              fontWeight: 500,
+            }}
           >
             {ratingValue.toFixed(1)}
           </Typography>

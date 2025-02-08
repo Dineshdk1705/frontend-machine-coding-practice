@@ -1,17 +1,22 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import styles from "./Header.module.css";
+import { Avatar, IconButton } from "@mui/material";
+import { logout } from "../../redux/slices/authSlice";
 
 const Header = () => {
   const cartList = useSelector((state) => state.cartItems.cartList);
   const wishlist = useSelector((state) => state.wishlistItems.wishlistList);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <header className={styles.header_container}>
@@ -58,7 +63,6 @@ const Header = () => {
         </Link>
       </nav>
 
-      {/* Header Icons */}
       <div className={styles.header_icons}>
         <Link className={styles.wishlist_link} to="/wishlist">
           <div className={styles.cart_icon_box}>
@@ -77,7 +81,22 @@ const Header = () => {
           </div>
         </Link>
         <Link className={styles.account_link}>
-          <AccountCircleIcon />
+          {user ? (
+            <IconButton
+              sx={{ backgroundColor: "red", padding: 0 }}
+              onClick={() => dispatch(logout())}
+            >
+              <Avatar
+                sx={{ width: 28, height: 28, border: "1px solid white" }}
+                alt="User Avatar"
+                src={user?.photoURL || "/images/user3.png"}
+              />
+            </IconButton>
+          ) : (
+            <IconButton onClick={() => navigate("/onboarding")}>
+              <AccountCircleIcon />
+            </IconButton>
+          )}
         </Link>
       </div>
     </header>

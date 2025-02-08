@@ -29,7 +29,6 @@ const Products = () => {
 
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const isMediumScreen = useMediaQuery("(max-width:900px)");
-
   useEffect(() => {
     if (isSmallScreen) {
       setPaginationSize("small");
@@ -68,7 +67,21 @@ const Products = () => {
 
   return (
     <>
-      <div className={styles.input_container}>
+      <div className={styles.heading_container}>
+        <Typography
+          sx={{
+            fontSize: {
+              xs: 30,
+              sm: 40,
+              md: 50,
+            },
+            fontWeight: 1000,
+            textAlign: "left",
+          }}
+          variant="h6"
+        >
+          Products
+        </Typography>
         <span className={styles.input_box}>
           <IoSearch style={{ marginRight: 5 }} color="#7d7d7def" />
           <input
@@ -84,20 +97,6 @@ const Products = () => {
           )}
         </span>
       </div>
-      <Typography
-        sx={{
-          fontSize: {
-            xs: 30,
-            sm: 40,
-            md: 50,
-          },
-          fontWeight: 1000,
-          textAlign: "left",
-        }}
-        variant="h6"
-      >
-        Products
-      </Typography>
       {isLoading ? (
         <div>Loading.....</div>
       ) : filteredProducts?.length ? (
@@ -111,6 +110,7 @@ const Products = () => {
                   inCart={checkInCart(product?.id)}
                   inWishlist={checkInWishlist(product?.id)}
                   ratingValue={product?.rating}
+                  discountPercentage={product?.discountPercentage}
                 />
               );
             })}

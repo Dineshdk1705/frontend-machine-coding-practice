@@ -33,11 +33,14 @@
 
 .header_icons {
   display: flex;
-  gap: 1.5rem;
+  align-items: center;
+  gap: 1.8rem;
 }
 
 .cart_icon_box {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .indicator {

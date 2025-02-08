@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Roboto, Arial, sans-serif", // Ensure fallback fonts
+    fontFamily: "Roboto, Arial, sans-serif",
   },
 });
 

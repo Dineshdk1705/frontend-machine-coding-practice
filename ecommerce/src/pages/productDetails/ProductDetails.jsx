@@ -147,7 +147,7 @@ const ProductDetails = () => {
                 <p className={styles.review}>({product?.reviews.length})</p>
               </div>
               <Typography variant="h6" sx={{ fontWeight: 900 }}>
-                ₹ {product?.price}
+                ₹{product?.price.toLocaleString("en-IN")}
               </Typography>
               <Typography
                 variant="body1"

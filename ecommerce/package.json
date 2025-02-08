@@ -10,6 +10,7 @@
     "@mui/material": "^6.4.3",
     "@reduxjs/toolkit": "^2.5.1",
     "cra-template": "1.2.0",
+    "firebase": "^11.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.1",
