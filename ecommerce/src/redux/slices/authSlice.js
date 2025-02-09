@@ -48,6 +48,13 @@ export const registerWithEmail = createAsyncThunk(
         email,
         password
       );
+      const { user } = userCredential;
+      const userData = {
+        email: user?.email,
+        userId: user?.uid,
+        token: user?.stsTokenManager?.accessToken,
+      };
+      localStorage.setItem("user", JSON.stringify(userData));
       return userCredential.user;
     } catch (error) {
       return rejectWithValue(error.message);

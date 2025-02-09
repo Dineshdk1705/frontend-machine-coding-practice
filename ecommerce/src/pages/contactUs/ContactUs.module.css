@@ -1,0 +1,144 @@
+/* Center the form in the viewport */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* background: #f4f4f4; */
+  padding: 20px;
+}
+
+/* Contact container */
+.contactContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  width: 100%;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Contact info */
+.contactInfo {
+  flex: 1;
+  min-width: 300px;
+  padding: 20px;
+}
+
+.contactInfo h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.contactInfo p {
+  font-size: 16px;
+  color: #666;
+}
+
+.contactDetails {
+  margin-top: 20px;
+}
+
+.contactDetails p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: #444;
+  margin: 8px 0;
+}
+
+.icon {
+  color: #4a99e8;
+  font-size: 20px;
+}
+
+/* Form container */
+.formContainer {
+  flex: 1;
+  min-width: 300px;
+  padding: 20px;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: #4a99e8;
+  outline: none;
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Submit button */
+.submitButton {
+  padding: 12px;
+  background: #4a99e8;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.submitButton:hover {
+  background: #3a87d8;
+}
+
+/* Thank you message with fade-in and fade-out effect */
+.thankYouMessage {
+  animation: fadeInOut 5s ease-in-out forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .contactContainer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contactDetails p {
+    justify-content: center;
+  }
+}

@@ -16,8 +16,32 @@
 .card {
   display: flex;
   /* align-items: center; */
+  position: relative;
   gap: 20px;
   list-style: none;
+}
+
+.remove_btn_container {
+  color: red;
+  background-color: white;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  padding: 0;
+}
+
+.emptyWishlistImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  margin: 0 auto;
+}
+
+.emptyWishlistImage img {
+  /* width: 100vw; */
+  text-align: center;
+  height: 500px;
 }
 
 .thumbnail {

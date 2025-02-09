@@ -9,6 +9,7 @@ import {
   registerWithEmail,
 } from "../../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const OnBoarding = () => {
   const [email, setEmail] = useState("");
@@ -29,6 +30,7 @@ const OnBoarding = () => {
       return;
     }
     dispatch(loginWithEmail({ email, password }));
+    toast.success("Login Successfully ✅");
   };
 
   const handleSignUp = () => {
@@ -37,6 +39,7 @@ const OnBoarding = () => {
       return;
     }
     dispatch(registerWithEmail({ email, password }));
+    toast.success("Sign up Successfully ✅");
   };
 
   return (

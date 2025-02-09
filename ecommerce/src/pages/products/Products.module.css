@@ -6,6 +6,12 @@
   margin: 30px 0;
 }
 
+.heading_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .input_box {
   position: relative;
   display: flex;
@@ -14,12 +20,6 @@
   border: 1px solid #bababa;
   width: 20rem;
   border-radius: 30px;
-}
-
-.heading_container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .input {
@@ -63,6 +63,15 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     margin: 0 30px;
+  }
+
+  .heading_container {
+    flex-direction: column;
+    flex-direction: column-reverse;
+  }
+
+  .pagination_container {
+    justify-content: center;
   }
 }
 

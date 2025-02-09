@@ -30,10 +30,18 @@ const Cart = () => {
   return (
     <div className={styles.container}>
       <Typography
-        sx={{ fontSize: 50, fontWeight: 1000, textAlign: "center" }}
+        sx={{
+          fontSize: {
+            xs: 30,
+            sm: 40,
+            md: 50,
+          },
+          fontWeight: 1000,
+          textAlign: "center",
+        }}
         variant="h6"
       >
-        Cart
+        Cart {cart.length > 0 ? "" : "is Empty"}
       </Typography>
       <div className={styles.cartWrapper}>
         <div className={cart.length > 0 ? styles.cartItems : styles.emptyCart}>
@@ -56,7 +64,7 @@ const Cart = () => {
             </ul>
           ) : (
             <div className={styles.emptyCartImage}>
-              <img src="/empty-cart.png" alt="empty-cart" />
+              <img src="/images/empty-cart.webp" alt="empty-cart" />
             </div>
           )}
         </div>

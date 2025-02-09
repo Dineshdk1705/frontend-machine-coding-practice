@@ -37,13 +37,15 @@
 
 .emptyCartImage {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
+  /* background-color: red; */
+  height: 100vh;
 }
 
 .emptyCartImage img {
-  width: 300px;
-  height: 300px;
+  width: 500px;
+  height: 500px;
 }
 
 .summary {

@@ -11,6 +11,6 @@
 
 @media (max-width: 480px) {
   .main_layout {
-    padding: 0 20px;
+    padding: 0;
   }
 }

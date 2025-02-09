@@ -3,16 +3,19 @@ import styles from "./Products.module.css";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import useDebounce from "../../hooks/useDebounce";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../../redux/slices/productSlice";
+import {
+  fetchProducts,
+  fetchProductsByCategory,
+  setSelectedCategory,
+} from "../../redux/slices/productSlice";
 import { IoSearch } from "react-icons/io5";
 import CloseIcon from "@mui/icons-material/Close";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { Pagination } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 
 const Products = () => {
   const [searchText, setSearchText] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const [paginationSize, setPaginationSize] = useState("medium");
   const itemsPerPage = 12;
   const debounceSearch = useDebounce(searchText, 600);
@@ -22,13 +25,15 @@ const Products = () => {
   const endIndex = startIndex + itemsPerPage;
 
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.productItems.productList);
+  const { productList, selectedCategory, loading } = useSelector(
+    (state) => state.productItems
+  );
   const carts = useSelector((state) => state.cartItems.cartList);
   const wishlists = useSelector((state) => state.wishlistItems.wishlistList);
-  const isLoading = useSelector((state) => state.productItems.loading);
 
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const isMediumScreen = useMediaQuery("(max-width:900px)");
+
   useEffect(() => {
     if (isSmallScreen) {
       setPaginationSize("small");
@@ -48,17 +53,19 @@ const Products = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+    if (selectedCategory) {
+      dispatch(fetchProductsByCategory(selectedCategory?.slug));
+    } else {
+      dispatch(fetchProducts());
+    }
+  }, [dispatch, selectedCategory]);
 
   useEffect(() => {
-    const filteredData = products?.filter((p) =>
-      p?.title?.toLowerCase().includes(debounceSearch.trim().toLowerCase())
-    );
-    setFilteredProducts(filteredData);
+    if (debounceSearch) dispatch(fetchProducts(debounceSearch));
+    if (!debounceSearch && !selectedCategory) dispatch(fetchProducts());
     setCurrentPage(1);
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [debounceSearch, products]);
+  }, [debounceSearch, dispatch, selectedCategory]);
 
   const handleChange = (e, page) => {
     setCurrentPage(page);
@@ -68,41 +75,83 @@ const Products = () => {
   return (
     <>
       <div className={styles.heading_container}>
-        <Typography
-          sx={{
-            fontSize: {
-              xs: 30,
-              sm: 40,
-              md: 50,
-            },
-            fontWeight: 1000,
-            textAlign: "left",
-          }}
-          variant="h6"
-        >
-          Products
-        </Typography>
+        <div>
+          <Typography
+            sx={{
+              fontSize: {
+                xs: 30,
+                sm: 40,
+                md: selectedCategory ? 40 : 50,
+              },
+              margin: {
+                xs: "0.3rem 0",
+                // sm: 40,
+                md: 0,
+              },
+              fontWeight: 1000,
+              textAlign: "left",
+            }}
+            variant="h6"
+          >
+            {selectedCategory ? `"${selectedCategory?.name}"` : "All Products"}
+          </Typography>
+          {selectedCategory && (
+            <Button
+              className={styles.showAll_btn}
+              variant="contained"
+              color="success"
+              size="small"
+              sx={{
+                borderRadius: 5,
+                boxShadow: "none",
+                fontSize: "11px",
+                textTransform: "capitalize",
+                backgroundColor: "#363636",
+                marginBottom: {
+                  xs: 1,
+                  sm: 1,
+                  // md: 0,
+                },
+              }}
+              onClick={() => {
+                dispatch(setSelectedCategory(""));
+                dispatch(fetchProducts());
+              }}
+            >
+              Show All products
+            </Button>
+          )}
+        </div>
         <span className={styles.input_box}>
           <IoSearch style={{ marginRight: 5 }} color="#7d7d7def" />
           <input
             className={styles.input}
             value={searchText}
             placeholder="search product..."
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+              dispatch(setSelectedCategory(""));
+            }}
           />
           {searchText.trim() && (
-            <span className={styles.close} onClick={() => setSearchText("")}>
+            <span
+              className={styles.close}
+              onClick={() => {
+                setSearchText("");
+                dispatch(fetchProducts());
+              }}
+            >
               <CloseIcon fontSize="20px" />
             </span>
           )}
         </span>
       </div>
-      {isLoading ? (
+      {loading ? (
         <div>Loading.....</div>
-      ) : filteredProducts?.length ? (
+      ) : productList?.length ? (
         <div>
           <ul className={styles.products_container}>
-            {filteredProducts?.slice(startIndex, endIndex)?.map((product) => {
+            {productList?.slice(startIndex, endIndex)?.map((product) => {
               return (
                 <ProductCard
                   key={product?.id}
@@ -117,7 +166,7 @@ const Products = () => {
           </ul>
           <div className={styles.pagination_container}>
             <Pagination
-              count={Math.ceil(filteredProducts?.length / itemsPerPage)}
+              count={Math.ceil(productList?.length / itemsPerPage)}
               page={currentPage}
               onChange={handleChange}
               color="primary"
