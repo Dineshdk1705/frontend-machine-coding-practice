@@ -29,9 +29,15 @@ const Wishlist = () => {
       {wishlist?.length > 0 ? (
         <ul className={styles.card_container}>
           {wishlist.map((w) => (
-            <li className={styles.card}>
+            <li key={w.id} className={styles.card}>
               <IconButton
-                sx={{}}
+                sx={{
+                  position: "absolute",
+                  color: " #ED9291",
+                  top: -10,
+                  left: -10,
+                  padding: 0,
+                }}
                 className={styles.remove_btn_container}
                 onClick={() => dispatch(removeFromWishlist(w?.id))}
               >

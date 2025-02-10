@@ -1,0 +1,37 @@
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  padding: 20px;
+}
+
+.skeletonCard {
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.imageSkeleton {
+  border-radius: 8px;
+}
+
+.titleSkeleton {
+  margin-top: 10px;
+}
+
+.priceSkeleton {
+  margin-top: 6px;
+}
+
+@media (max-width: 1024px) {
+  .productsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .productsGrid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

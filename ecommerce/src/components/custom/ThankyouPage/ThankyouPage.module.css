@@ -1,0 +1,61 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 20px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.successIcon {
+  font-size: 5rem;
+  color: #4a99e8;
+  margin-bottom: 20px;
+  animation: scaleUp 0.6s ease-out;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.message {
+  font-size: 1.2rem;
+  color: #666;
+  animation: fadeIn 1.4s ease-in-out;
+}
+
+.redirectMessage {
+  font-size: 1rem;
+  color: #888;
+  margin-top: 15px;
+  animation: fadeIn 1.6s ease-in-out;
+}

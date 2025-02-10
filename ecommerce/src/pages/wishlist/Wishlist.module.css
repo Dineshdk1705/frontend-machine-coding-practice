@@ -8,26 +8,27 @@
 
 .card_container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto;
   gap: 20px;
 }
 
 .card {
-  display: flex;
-  /* align-items: center; */
   position: relative;
+  display: flex;
+  align-items: center;
   gap: 20px;
   list-style: none;
 }
 
 .remove_btn_container {
-  color: red;
-  background-color: white;
   position: absolute;
-  top: -10px;
-  left: -10px;
+  background-color: white;
   padding: 0;
+}
+
+.remove_btn_container:hover {
+  color: red;
 }
 
 .emptyWishlistImage {
@@ -41,14 +42,14 @@
 .emptyWishlistImage img {
   /* width: 100vw; */
   text-align: center;
-  height: 500px;
+  height: auto;
 }
 
 .thumbnail {
   height: 130px;
   width: 130px;
   border-radius: 20px;
-  background-color: #e1e1e1;
+  background: linear-gradient(to bottom right, rgb(253, 253, 253), #d3d3d3);
 }
 
 .details_box {
@@ -59,13 +60,38 @@
   justify-content: space-between;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1024px) {
   .card_container {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
   }
 
   .main_container {
     gap: 1.3rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .card_container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .main_container {
+    gap: 1.3rem;
+  }
+
+  .emptyWishlistImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .emptyWishlistImage img {
+    text-align: center;
+    height: 200px;
+    width: 100vw;
   }
 }

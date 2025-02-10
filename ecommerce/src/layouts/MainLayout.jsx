@@ -9,7 +9,7 @@ const MainLayout = () => {
     <>
       <Header />
       <main
-        style={{ minHeight: "95vh", textAlign: "center" }}
+        style={{ minHeight: "92vh", textAlign: "center" }}
         className={styles.main_layout}
       >
         <Outlet />

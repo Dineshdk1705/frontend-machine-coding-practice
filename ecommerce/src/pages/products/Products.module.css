@@ -10,6 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 0;
 }
 
 .input_box {
@@ -83,7 +84,6 @@
   }
 
   .heading_container {
-    /* flex-direction: column; */
     flex-wrap: wrap-reverse;
     justify-content: center;
   }

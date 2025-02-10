@@ -1,14 +1,14 @@
-/* Center the form in the viewport */
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  /* background: #f4f4f4; */
   padding: 20px;
+  background: #f9f9f9;
+  position: relative;
+  top: -50px;
 }
 
-/* Contact container */
 .contactContainer {
   display: flex;
   flex-wrap: wrap;
@@ -22,21 +22,20 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Contact info */
 .contactInfo {
   flex: 1;
-  min-width: 300px;
+  min-width: 280px;
   padding: 20px;
 }
 
 .contactInfo h2 {
-  font-size: 28px;
+  font-size: 2rem; /* Scales well on different screens */
   color: #333;
   margin-bottom: 10px;
 }
 
 .contactInfo p {
-  font-size: 16px;
+  font-size: 1rem;
   color: #666;
 }
 
@@ -48,20 +47,19 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 16px;
+  font-size: 1rem;
   color: #444;
   margin: 8px 0;
 }
 
 .icon {
   color: #4a99e8;
-  font-size: 20px;
+  font-size: 1.2rem;
 }
 
-/* Form container */
 .formContainer {
   flex: 1;
-  min-width: 300px;
+  min-width: 280px;
   padding: 20px;
 }
 
@@ -77,8 +75,8 @@
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
-  font-size: 16px;
-  transition: 0.3s;
+  font-size: 1rem;
+  transition: 0.3s ease;
 }
 
 .input:focus,
@@ -92,13 +90,12 @@
   resize: vertical;
 }
 
-/* Submit button */
 .submitButton {
   padding: 12px;
   background: #4a99e8;
   color: white;
   border: none;
-  font-size: 16px;
+  font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
   transition: 0.3s ease;
@@ -108,9 +105,11 @@
   background: #3a87d8;
 }
 
-/* Thank you message with fade-in and fade-out effect */
 .thankYouMessage {
   animation: fadeInOut 5s ease-in-out forwards;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #000;
 }
 
 @keyframes fadeInOut {
@@ -131,14 +130,81 @@
   }
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .contactContainer {
     flex-direction: column;
     text-align: center;
+    padding: 20px;
+  }
+
+  .contactInfo,
+  .formContainer {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
   }
 
   .contactDetails p {
     justify-content: center;
+  }
+
+  .submitButton {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .contactContainer {
+    padding: 5px;
+  }
+
+  .contactInfo h2 {
+    font-size: 1.8rem;
+  }
+
+  .input,
+  .textarea {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .submitButton {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .thankYouMessage {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contactInfo h2 {
+    font-size: 1.5rem;
+  }
+
+  .contactInfo p,
+  .contactDetails p {
+    font-size: 0.9rem;
+  }
+
+  .input,
+  .textarea {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .submitButton {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .thankYouMessage {
+    font-size: 1rem;
   }
 }

@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "../productDetails/ProductDetails.module.css";
 import Typography from "@mui/material/Typography";
-import { Divider, IconButton, Rating } from "@mui/material";
+import { CircularProgress, Divider, IconButton, Rating } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { BiHome } from "react-icons/bi";
@@ -13,7 +13,10 @@ import {
   decreaseQuantity,
   increaseQuantity,
   removeFromCart,
+  setTotalAmount,
 } from "../../redux/slices/cartSlice";
+import { setCheckoutAllowed } from "../../redux/slices/checkoutSlice";
+import ProductDetailsLoading from "../../components/custom/loadings/ProductDetailsLoading/ProductDetailsLoading";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -21,8 +24,10 @@ const ProductDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [imageNumber, setImageNumber] = useState(0);
   const [customQuantity, setCustomQuantity] = useState(1);
+  const [loading, setLoading] = useState(false);
   const carts = useSelector((state) => state.cartItems.cartList);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const cartIdInCart = useCallback(
     (id) => {
@@ -81,10 +86,22 @@ const ProductDetails = () => {
     }
   }, [carts, id, findIndexOfProduct]);
 
+  const handleBuyNow = (productId, productPrice) => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      dispatch(setCheckoutAllowed(true));
+      dispatch(setTotalAmount(productPrice * customQuantity));
+      dispatch(removeFromCart(productId));
+      navigate("/payment");
+    }, 2000);
+  };
+
   return (
     <div>
       {isLoading ? (
-        <div>Loading.....</div>
+        <ProductDetailsLoading />
       ) : (
         <div className={styles.container}>
           <div className={styles.left_side}>
@@ -207,7 +224,21 @@ const ProductDetails = () => {
                 </Typography>
               </div>
               <div className={styles.btn_box}>
-                <button className={styles.buy_button}>Buy Now</button>
+                <button
+                  className={styles.buy_button}
+                  onClick={() => handleBuyNow(product?.id, product?.price)}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <CircularProgress
+                      sx={{ padding: 0 }}
+                      size={15}
+                      color="inherit"
+                    />
+                  ) : (
+                    "Buy Now"
+                  )}
+                </button>
                 <button
                   className={styles.cart_button}
                   style={{

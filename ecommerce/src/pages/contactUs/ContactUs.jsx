@@ -44,11 +44,11 @@ const ContactUs = () => {
                 <FaEnvelope className={styles.icon} /> support@ebazaar.com
               </p>
               <p>
-                <FaPhoneAlt className={styles.icon} /> +1 234 567 890
+                <FaPhoneAlt className={styles.icon} /> +19 234 567 8900
               </p>
               <p>
-                <FaMapMarkerAlt className={styles.icon} /> 123 Street, New York,
-                USA
+                <FaMapMarkerAlt className={styles.icon} /> Bengaluru, Karnataka,
+                IN
               </p>
             </div>
           </div>

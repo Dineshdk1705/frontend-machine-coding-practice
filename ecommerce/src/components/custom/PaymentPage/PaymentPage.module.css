@@ -1,0 +1,51 @@
+.paymentContainer {
+  text-align: center;
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.qrContainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.payNowButton {
+  display: inline-block;
+  background-color: #4a99e8;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+.payNowButton:hover {
+  background-color: #357ac7;
+}
+
+.pay_container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 415px) {
+  .pay_container {
+    width: 200px;
+    gap: 10px;
+  }
+
+  .paymentContainer {
+    padding: 10px 20px;
+  }
+}
+
+.heading {
+  margin-bottom: 10px;
+}

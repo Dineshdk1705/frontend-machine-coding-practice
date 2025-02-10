@@ -14,6 +14,8 @@ import OnBoarding from "./components/custom/OnBoarding/OnBoarding";
 import ProtectedRoute from "./components/ProtectedRoute"; // Import Protected Route
 import Categories from "./pages/categories/Categories";
 import ContactUs from "./pages/contactUs/ContactUs";
+import PaymentPage from "./components/custom/PaymentPage/PaymentPage";
+import ThankYouPage from "./components/custom/ThankyouPage/ThankyouPage";
 
 const AppRoutes = () => {
   return (
@@ -30,6 +32,8 @@ const AppRoutes = () => {
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/thank-you" element={<ThankYouPage />} />
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />

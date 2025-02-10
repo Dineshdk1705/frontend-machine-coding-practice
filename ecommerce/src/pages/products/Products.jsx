@@ -13,6 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Button, Typography } from "@mui/material";
 import { Pagination } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
+import ProductsLoading from "../../components/custom/loadings/ProductsLoading/ProductsLoading";
 
 const Products = () => {
   const [searchText, setSearchText] = useState("");
@@ -147,7 +148,7 @@ const Products = () => {
         </span>
       </div>
       {loading ? (
-        <div>Loading.....</div>
+        <ProductsLoading />
       ) : productList?.length ? (
         <div>
           <ul className={styles.products_container}>

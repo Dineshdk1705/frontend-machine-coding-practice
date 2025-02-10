@@ -1,17 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./Cart.module.css";
 import CartCard from "../../components/custom/CartCard/CartCard";
-import { Typography } from "@mui/material";
+import { Button, CircularProgress, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { setTotalAmount } from "../../redux/slices/cartSlice";
+import { setCheckoutAllowed } from "../../redux/slices/checkoutSlice";
 
 const Cart = () => {
   const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState(0);
+  const [loading, setLoading] = useState(false);
   const cart = useSelector((state) => state.cartItems.cartList);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const subtotal = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  const total = subtotal * (1 - discount);
+
+  useEffect(() => {
+    dispatch(setTotalAmount(total.toFixed(2)));
+  }, [total, dispatch]);
 
   const handleApplyPromoCode = () => {
     if (promoCode === "SAVE10") {
@@ -21,11 +37,16 @@ const Cart = () => {
     }
   };
 
-  const subtotal = cart.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-  const total = subtotal * (1 - discount);
+  const handleCheckout = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      dispatch(setCheckoutAllowed(true));
+      navigate("/payment");
+    }, 2000);
+  };
 
   return (
     <div className={styles.container}>
@@ -80,12 +101,26 @@ const Cart = () => {
                 className={styles.promoInput}
                 placeholder="Type here..."
               />
-              <button
-                onClick={handleApplyPromoCode}
-                className={styles.applyButton}
-              >
-                Apply
-              </button>
+              <div className={styles.applyButton}>
+                <Button
+                  className={styles.applyButton}
+                  onClick={handleApplyPromoCode}
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#000",
+                    display: "flex",
+                    alignItems: "center",
+                    width: "100%",
+                    padding: "5px",
+                    boxShadow: "none",
+                    textTransform: "capitalize",
+                    fontWeight: 400,
+                    borderRadius: 0,
+                  }}
+                >
+                  Apply
+                </Button>
+              </div>
             </div>
             <div className={styles.summaryDetails}>
               <div className={styles.summaryRow}>
@@ -100,9 +135,33 @@ const Cart = () => {
                 <span>Total</span>
                 <span>₹{total.toFixed(2)}</span>
               </div>
-              <button className={styles.checkoutButton}>
-                Continue to checkout
-              </button>
+              <div className={styles.checkoutButton}>
+                <Button
+                  className={styles.checkoutButton}
+                  onClick={handleCheckout}
+                  variant="contained"
+                  color={loading ? "secondary" : "primary"}
+                  disabled={loading}
+                  sx={{
+                    backgroundColor: loading ? "#aaa" : "#000",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    width: "100%",
+                    padding: "5px",
+                    boxShadow: "none",
+                    textTransform: "capitalize",
+                    fontWeight: 400,
+                    borderRadius: 0,
+                  }}
+                >
+                  {loading ? (
+                    <CircularProgress size={24} color="inherit" />
+                  ) : (
+                    "Continue to checkout"
+                  )}
+                </Button>
+              </div>
             </div>
           </div>
         )}

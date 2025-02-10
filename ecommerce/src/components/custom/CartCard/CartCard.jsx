@@ -18,9 +18,11 @@ import {
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const CartCard = ({ id, thumbnail, title, price, quantity, stock }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <Card
@@ -36,6 +38,7 @@ const CartCard = ({ id, thumbnail, title, price, quantity, stock }) => {
       }}
     >
       <CardMedia
+        onClick={() => navigate(`/products/${id}`)}
         component="img"
         image={thumbnail}
         alt={title}
